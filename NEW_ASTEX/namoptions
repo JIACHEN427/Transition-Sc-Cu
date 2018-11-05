@@ -10,8 +10,8 @@ nsv        =  2
 nc_input   = .true.
 /
 &DOMAIN
-itot       =  144
-jtot       =  144 
+itot       =  128 
+jtot       =  128 
 kmax       =  427
 xsize      =  4480.
 ysize      =  4480.
@@ -104,10 +104,10 @@ lstat       = .true.
 lnetcdf = .true.
 /
 &NAMFIELDDUMP
- DTAV        =   600
+ DTAV        =   60
  LFIELDDUMP  = .false.
  LDIRACC     = .false.
  LBINARY     = .false.
  KLOW        =   1
- KHIGH       =  400
+ KHIGH       =   400
 /

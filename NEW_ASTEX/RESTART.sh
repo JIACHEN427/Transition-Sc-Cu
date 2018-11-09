@@ -1,4 +1,5 @@
 # Used restart the DALES from designated time.
+# for a in `find . -type l`; do rm $a ;done # To remove all the link in the working dir
 CYCLE=8
 hr='08' # add '0' if the number is less than 10
 expnr='002'

@@ -1,6 +1,6 @@
-
+# Used restart the DALES from designated time.
 CYCLE=8
-hr='08'
+hr='08' # add '0' if the number is less than 10
 expnr='002'
 for i in `seq $CYCLE`; do
 

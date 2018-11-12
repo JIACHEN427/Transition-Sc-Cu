@@ -27,7 +27,7 @@ for n=1:ny
     else
         nn=num2str(n-1);
     end
-temp=ncread(['fielddump.000.0' nn expnr  '.nc'],Varname,[1 1 1 start_time],[x_pts y_pts z_pts end_time],[1 1 1 1]);
+temp=ncread(['fielddump.000.0' nn expnr  '.nc'],Varname,[1 1 1 start_time],[x_pts y_pts z_pts 60],[1 1 1 1]);
 Var(:,(n-1)*y_pts+1:n*y_pts,:,:) = squeeze(temp(:,:,:,start_time:end_time));
 clear temp
 end

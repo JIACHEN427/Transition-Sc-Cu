@@ -36,5 +36,6 @@ nccreate([aim_dir [Varname '_' num2str(loop)] '.nc'],'time','Dimensions',{'time'
 ncwrite([aim_dir [Varname '_' num2str(loop)] '.nc'],'time',time)
 ncwriteatt([aim_dir [Varname '_' num2str(loop)] '.nc'], 'time', 'units', 'seconds since 2010-11-9 00:00:00 +0:00');
 clear Var
+pack % Make more availbale memory.
 end
 

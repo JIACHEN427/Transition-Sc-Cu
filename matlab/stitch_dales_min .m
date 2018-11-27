@@ -13,8 +13,10 @@ ny=12;
 Varname='ql';
 aim_dir='/home/jiachen/storage/process/';
 expnr='.002';
+start_hr=1;
+end_hr=40;
 %% End of Configure
-for loop=1:40
+for loop=start_hr:end_hr
 start_time=(loop-1)*60+1;
 end_time=loop*60;
 time=ncread([aim_dir 'fielddump.000.000' expnr '.nc'],'time');
@@ -36,6 +38,5 @@ nccreate([aim_dir [Varname '_' num2str(loop)] '.nc'],'time','Dimensions',{'time'
 ncwrite([aim_dir [Varname '_' num2str(loop)] '.nc'],'time',time)
 ncwriteatt([aim_dir [Varname '_' num2str(loop)] '.nc'], 'time', 'units', 'seconds since 2010-11-9 00:00:00 +0:00');
 clear Var
-pack % Make more availbale memory.
 end
 

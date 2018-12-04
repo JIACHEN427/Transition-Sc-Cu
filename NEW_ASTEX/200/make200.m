@@ -1,10 +1,10 @@
 clc
 clear
-%% Matlab code made for input of DALES with prescirbed vertical grid as EUCLIPSE(427)
+%% Matlab code made for input of DALES with equidistant 200 vertical grids 
 %% Used to convert the ncdf input to plain text input.
-%% Need to be read from ncdf file ://41,427 :/dqtdtls, dthldtls, ug, vg, wfls, 
+%% Need to be read from ncdf file ://41,200 :/dqtdtls, dthldtls, ug, vg, wfls, 
 %%                                ://41     :/ps, qts, thls, timeflux, timels, wtsurf, wqsurf 
-%%                                ://427    :/qt, thl, tkes, u, v, zf 
+%%                                ://200    :/qt, thl, tkes, u, v, zf 
 %% Read data from ncdf
 dqtdtls=ncread('case_setup.nc','dqtdtls');
 dthldtls=ncread('case_setup.nc','dthldtls');
@@ -56,7 +56,7 @@ thlpcart=zeros(length(z),1);
 %% scalar.inp with 2var
 sv1=zeros(1,length(z));
 sv2=zeros(1,length(z));
-head1=(['#ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['#ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
 head2=('#height sv1 sv2');
 Var=[z;sv1;sv2];
 fid=fopen(['scalar.inp.' expnr ],'w');
@@ -72,7 +72,7 @@ fclose(fid);
 %% ls_fluxsv.inp with 2var
 sv1=zeros(1,length(z));
 sv2=zeros(1,length(z));
-head1=(['ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
 head2=('height sv1 sv2');
 head22=('time sv1 sv2');
 wsv1_start=0;
@@ -111,7 +111,7 @@ end
 fclose(fid);
 %% lscale.inp
 Var=[z',ug(1:grid_count,1),vg(1:grid_count,1),wflscc(:,1),dqtdx,dqtdy,dqtdtls,thlpcart];
-head1=(['#ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['#ASTEX case using dz = ' '5' 'm, Nlev ='  '200']);
 head2='#height     ug    vg      wfls    dqtdx    dqtdy    dqtdtls    thlpcart';
 fid=fopen(['lscale.inp.' expnr],'w');
 fprintf(fid,head1);
@@ -124,7 +124,7 @@ fprintf(fid,'%4.1f %2.0f %2.0f %1.6f %1.6f %3.6f %1.6f %1.6f\n',Var(i,:));
 end
 fclose(fid);
 %% ls_flux.inp with 6+8var
-head1=(['ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
 head2=('height ug vg wfls dqtdx dqtdy dqtdtls thlpcart');
 head22=('time wtsurf wqsurf thls qts press');
 Var_time=[time,wtsurf,wqsurf,thls,qts,press];
@@ -157,7 +157,7 @@ end
 fclose(fid);
 %% prof.inp with 6var
 Var=[z',thlcc,qtcc,ucc,vcc,tkecc];
-head1=(['#ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['#ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
 head2=('#height       thl       qt              u            v            tke');
 fid=fopen(['prof.inp.' expnr],'w');
 fprintf(fid,head1);
@@ -179,7 +179,7 @@ for i=1:size(z,2)
         sc2(i)=1;
     end
 end
-head1=(['#ASTEX case using dz = ' '5' 'm, Nlev ='  '427']);
+head1=(['#ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
 head2=('#height sc1 sc2');
 Var=[z;sc1;sc2];
 fid=fopen(['sc.inp.' expnr],'w');
@@ -199,3 +199,43 @@ fclose(fid);
 % plot(diff(z),z(1:end-1))
 % xlabel('\Delta z [m]')
 % ylabel('Height [m]')
+%% ls_fluxsc.inp with 2var
+sc1=zeros(1,length(z));
+sc2=zeros(1,length(z));
+head1=(['ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
+head2=('height sc1 sc2');
+head22=('time sc1 sc2');
+wsc1_start=0;
+wsc2_start=0;
+wsc1_end=0;
+wsc2_end=0;
+Var_start=[z;sc1;sc2];
+Var_end=[z;sc1;sc2];
+start_state=[start_time;wsc1_start;wsc2_start];
+end_state=[end_time;wsc1_end;wsc2_end];
+fid=fopen(['ls_fluxsc.inp.' expnr],'w');
+fprintf(fid,head1);
+fprintf(fid,'\r\n');
+fprintf(fid,head22);
+fprintf(fid,'\r\n');
+fprintf(fid,'%6.0f %1.3f %1.3f\n',start_state);
+fprintf(fid,'%6.0f %1.3f %1.3f\n',end_state);
+fprintf(fid,head2);
+fprintf(fid,'\r\n');
+fprintf(fid,'#');
+fprintf(fid,' ');
+fprintf(fid,'%1.1f\n',start_time);
+for i=1:length(z)
+fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_start(:,i));
+%fprintf(fid,'\r\n');
+end
+fprintf(fid,head2);
+fprintf(fid,'\r\n');
+fprintf(fid,'#');
+fprintf(fid,' ');
+fprintf(fid,'%1.1f\n',end_time);
+for i=1:length(z)
+fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_end(:,i));
+%fprintf(fid,'\r\n');
+end
+fclose(fid);

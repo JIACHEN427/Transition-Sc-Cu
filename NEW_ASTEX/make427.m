@@ -191,7 +191,7 @@ sc2=zeros(1,length(z));
 head1=(['ASTEX case using nonequidistant vertical grid as in EUCLIPSE, Nlev ='  '427']);
 head2=('height sc1 sc2');
 head22=('time sc1 sc2');
-wsc1_start=0;
+wsc1_start=0; % Surface flux of sc1 at the start
 wsc2_start=0;
 wsc1_end=0;
 wsc2_end=0;

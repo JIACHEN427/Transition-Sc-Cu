@@ -14,7 +14,7 @@ Varname='ql';
 aim_dir='/home/jiachen/storage/process/';
 expnr='.002';
 start_hr=1;
-end_hr=40;
+end_hr=40; %  if(ls60/512) 1 and 2
 %% End of Configure
 for loop=start_hr:end_hr
 start_time=(loop-1)*60+1;

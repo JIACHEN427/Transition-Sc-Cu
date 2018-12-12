@@ -33,9 +33,9 @@ expnr='001';
 %% delete existing inp file
 delete *.001
 %% For older DALES
-qts=zeros(end_time/time_var+1,1);
-wtsurf=ones(end_time/time_var+1,1)*0.01094';
-wqsurf=ones(end_time/time_var+1,1)*1.3e-5';
+%qts=zeros(end_time/time_var+1,1);
+%wtsurf=ones(end_time/time_var+1,1)*0.01094';
+%wqsurf=ones(end_time/time_var+1,1)*1.3e-5';
 %%
 %% scalar.inp with 2var
 sv1=zeros(1,length(z));
@@ -185,7 +185,7 @@ fclose(fid);
 % plot(diff(z),z(1:end-1))
 % xlabel('\Delta z [m]')
 % ylabel('Height [m]')
-%% ls_fluxsc.inp with 2var
+%% ls_fluxsc.inp with 2var. Cannot fix the large scale forcing bug, and large scale forcing here is zero. So I delete the large scale foring subrountine, so no inpu here.
 sc1=zeros(1,length(z));
 sc2=zeros(1,length(z));
 head1=(['ASTEX case using nonequidistant vertical grid as in EUCLIPSE, Nlev ='  '427']);
@@ -195,8 +195,8 @@ wsc1_start=0; % Surface flux of sc1 at the start
 wsc2_start=0;
 wsc1_end=0;
 wsc2_end=0;
-Var_start=[z;sc1;sc2];
-Var_end=[z;sc1;sc2];
+Var_start=[z;sc1';sc2'];
+Var_end=[z;sc1';sc2'];
 start_state=[start_time;wsc1_start;wsc2_start];
 end_state=[end_time;wsc1_end;wsc2_end];
 fid=fopen(['ls_fluxsc.inp.' expnr],'w');
@@ -206,22 +206,3 @@ fprintf(fid,head22);
 fprintf(fid,'\r\n');
 fprintf(fid,'%6.0f %1.3f %1.3f\n',start_state);
 fprintf(fid,'%6.0f %1.3f %1.3f\n',end_state);
-fprintf(fid,head2);
-fprintf(fid,'\r\n');
-fprintf(fid,'#');
-fprintf(fid,' ');
-fprintf(fid,'%1.1f\n',start_time);
-for i=1:length(z)
-fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_start(:,i));
-%fprintf(fid,'\r\n');
-end
-fprintf(fid,head2);
-fprintf(fid,'\r\n');
-fprintf(fid,'#');
-fprintf(fid,' ');
-fprintf(fid,'%1.1f\n',end_time);
-for i=1:length(z)
-fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_end(:,i));
-%fprintf(fid,'\r\n');
-end
-fclose(fid);

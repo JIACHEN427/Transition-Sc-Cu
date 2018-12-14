@@ -174,7 +174,7 @@ zi=660; % Initial inversion height
 sc1=zeros(1,length(z));
 sc2=zeros(1,length(z));
 for i=1:size(z,2)
-    sc1(i)=z(i)/z(end)*1.5;
+    sc1(i)=z(i)/1000; % As term in the governing equation.
     if z(i)>zi
         sc2(i)=1;
     end
@@ -199,7 +199,7 @@ fclose(fid);
 % plot(diff(z),z(1:end-1))
 % xlabel('\Delta z [m]')
 % ylabel('Height [m]')
-%% ls_fluxsc.inp with 2var
+%% ls_fluxsc.inp with 2var without large scale forcing.
 sc1=zeros(1,length(z));
 sc2=zeros(1,length(z));
 head1=(['ASTEX case using dz = ' '15' 'm, Nlev ='  '200']);
@@ -218,24 +218,5 @@ fprintf(fid,head1);
 fprintf(fid,'\r\n');
 fprintf(fid,head22);
 fprintf(fid,'\r\n');
-fprintf(fid,'%6.0f %1.3f %1.3f\n',start_state);
-fprintf(fid,'%6.0f %1.3f %1.3f\n',end_state);
-fprintf(fid,head2);
-fprintf(fid,'\r\n');
-fprintf(fid,'#');
-fprintf(fid,' ');
-fprintf(fid,'%1.1f\n',start_time);
-for i=1:length(z)
-fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_start(:,i));
-%fprintf(fid,'\r\n');
-end
-fprintf(fid,head2);
-fprintf(fid,'\r\n');
-fprintf(fid,'#');
-fprintf(fid,' ');
-fprintf(fid,'%1.1f\n',end_time);
-for i=1:length(z)
-fprintf(fid,'%4.1f %1.3f %1.3f\n',Var_end(:,i));
-%fprintf(fid,'\r\n');
-end
-fclose(fid);
+fprintf(fid,'%6.0f %1.1f %1.1f\n',start_state);
+fprintf(fid,'%6.0f %1.1f %1.1f\n',end_state);

@@ -20,3 +20,17 @@ colormap(ax,mycmap)
 colorbar
 pause
 end
+
+
+%%
+%% Calculate the Deardroff convective velocity
+% \begin{equation}
+% 	w^{\star3}=2.5\frac{g}{\theta_v}\int^{z_i}_{0}\overline{w'\theta_v'}
+% \end{equation}
+g=9.81;
+prefix = '/Users/jiachenlu/Desktop/send/1/'
+wthv=ncread([prefix  'profiles_24-25.nc'],'wthvt');
+thv=ncread([prefix  'profiles_24-25.nc'],'thv');
+zi=ncread([prefix  'tmser_24-25.nc'],'zi');
+T=thv;
+2.5*g/T*zi(10)*wthv(1,1)

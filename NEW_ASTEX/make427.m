@@ -160,7 +160,7 @@ zi=660; % Initial inversion height
 sc1=zeros(1,length(z));
 sc2=zeros(1,length(z));
 for i=1:size(z,1)
-    sc1(i)=z(i)/z(end)*1.5;
+    sc1(i)=z(i)/1000;
     if z(i)>zi
         sc2(i)=1;
     end

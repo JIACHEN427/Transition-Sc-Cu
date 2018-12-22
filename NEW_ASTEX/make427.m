@@ -206,3 +206,26 @@ fprintf(fid,head22);
 fprintf(fid,'\r\n');
 fprintf(fid,'%6.0f %1.3f %1.3f\n',start_state);
 fprintf(fid,'%6.0f %1.3f %1.3f\n',end_state);
+%%
+%% check the passive scalar concentration
+% subplot(1,3,1)
+% plot(sc1,z,'.')
+% ylabel('Height [m]')
+% xlabel('S_{BL}')
+% xlim([-0.1,3.1])
+% ylim([0,3100])
+% subplot(1,3,2)
+% plot(sc2,z,'.')
+% ylabel('Height [m]')
+% xlabel('S_{FT}')
+% line([0,max(diff(z))],[zi,zi],'Color','k','LineWidth',1)
+% ylim([0,3100])
+% xlim([-0.1,1.1])
+% %% Do the plot as in DAVINI's 
+% subplot(1,3,3)
+% plot(diff(z),z(1:end-1),'.')
+% hold on
+% line([0,max(diff(z))],[zi,zi],'Color','k','LineWidth',1)
+% xlabel('\Delta z [m]')
+% ylabel('Height [m]')
+% ylim([0,3100])

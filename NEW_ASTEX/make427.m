@@ -208,24 +208,35 @@ fprintf(fid,'%6.0f %1.3f %1.3f\n',start_state);
 fprintf(fid,'%6.0f %1.3f %1.3f\n',end_state);
 %%
 %% check the passive scalar concentration
-% subplot(1,3,1)
-% plot(sc1,z,'.')
-% ylabel('Height [m]')
-% xlabel('S_{BL}')
-% xlim([-0.1,3.1])
-% ylim([0,3100])
-% subplot(1,3,2)
-% plot(sc2,z,'.')
-% ylabel('Height [m]')
-% xlabel('S_{FT}')
-% line([0,max(diff(z))],[zi,zi],'Color','k','LineWidth',1)
-% ylim([0,3100])
-% xlim([-0.1,1.1])
-% %% Do the plot as in DAVINI's 
-% subplot(1,3,3)
-% plot(diff(z),z(1:end-1),'.')
-% hold on
-% line([0,max(diff(z))],[zi,zi],'Color','k','LineWidth',1)
-% xlabel('\Delta z [m]')
-% ylabel('Height [m]')
-% ylim([0,3100])
+%sc001=ncread('profiles.001.nc','sc001');
+%sc002=ncread('profiles.001.nc','sc002');
+subplot(1,3,1)
+plot(sc1,z,'LineWidth',1)
+hold on 
+%plot(sc001(:,240),z)
+line([-0.1,3.2],[zi,zi],'Color','r','LineWidth',1)
+line([-0.1,3.2],[1850,1850],'Color','r','LineWidth',1,'LineStyle','--')
+ylabel('Height [m]','FontSize',20)
+xlabel('S_{BL}','FontSize',20)
+xlim([-0.1,3.1])
+ylim([0,3100])
+subplot(1,3,2)
+plot(sc2,z,'LineWidth',1)
+hold on 
+%plot(sc001(:,240),z)
+ylabel('Height [m]','FontSize',20)
+xlabel('S_{FT}','FontSize',20)
+line([-0.1,1.1],[zi,zi],'Color','r','LineWidth',1)
+line([-0.1,1.1],[1850,1850],'Color','r','LineWidth',1,'LineStyle','--')
+ylim([0,3100])
+xlim([-0.1,1.1])
+%% Do the plot as in DAVINI's 
+subplot(1,3,3)
+plot(diff(z),z(1:end-1),'o')
+hold on
+line([0,50],[zi,zi],'Color','r','LineWidth',1)
+line([0,50],[1850,1850],'Color','r','LineWidth',1,'LineStyle','--')
+xlabel('\Delta z [m]','FontSize',20)
+ylabel('Height [m]','FontSize',20)
+ylim([0,3100])
+xlim([0,50])

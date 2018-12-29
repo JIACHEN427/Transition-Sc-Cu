@@ -6,23 +6,23 @@ clc
 %% To get varibles in 3-D field with low memory usage in COARDS convention(need to have specific time axes) and can be read by paraview
 %% Configure here
 %% Save the data for animation with a loop of 1hr with minimum memory usage.
-x_pts = 128;
+x_pts = 512;
 y_pts = 16;
 z_pts = 200;
 nx = 1;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-ny = 8;
-save_interval = 3600/600; 
-Varname='sc002';
-aim_dir='/Users/jiachenlu/Desktop/send/1/pa/20/';
-expnr='.002';
-start_hr=1;
-end_hr=40; %  if(ls60/512) 1 and 2
-save_hourly=false; % Switch to save the output hourly
+ny = 32;
+save_interval = 3600/60; 
+Varname = 'w';
+aim_dir = '/Volumes/Database/5_60/';
+expnr = '.002';
+start_hr = 1;
+end_hr = 2; %  if(ls60/512) 1 and 2
+save_hourly = false; % Switch to save the output hourly
 %% End of Configure
 if (save_hourly)
-for loop=start_hr:end_hr
-start_time=(loop-1)*save_interval+1;
-end_time=loop*save_interval;
+for loop = start_hr:end_hr
+start_time = (loop-1)*save_interval+1;
+end_time = (loop-1)*save_interval;
 time=ncread([aim_dir 'fielddump.000.000' expnr '.nc'],'time');
 time=time(start_time:end_time,1);
 Var=zeros(x_pts*nx,y_pts*ny,z_pts,end_time-start_time+1);
@@ -62,7 +62,7 @@ else % Save the ouput in one file
 %%
 
 start_time=(start_hr-1)*save_interval+1;
-end_time=(end_hr)*save_interval;
+end_time=(end_hr-1)*save_interval;
 time=ncread(['fielddump.000.000' expnr '.nc'],'time');
 time=time(start_time:end_time,1);
 Var=zeros(x_pts*nx,y_pts*ny,z_pts,end_time-start_time+1);
